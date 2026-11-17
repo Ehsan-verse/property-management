@@ -28,6 +28,7 @@ import Settings from './pages/dashboard/Settings'
 
 // Auth provider
 import { AuthProvider } from './hooks/useAuth'
+import { PublicLayout } from './components/layout/PublicLayout'
 
 function App() {
   return (
@@ -35,11 +36,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/buildings" element={<BuildingOverview />} />
-          <Route path="/units" element={<UnitsPage />} />
-          <Route path="/units/:unitId" element={<UnitDetailPage />} />
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/buildings" element={<BuildingOverview />} />
+            <Route path="/units" element={<UnitsPage />} />
+            <Route path="/units/:unitId" element={<UnitDetailPage />} />
+          </Route>
 
           {/* Auth Routes */}
           <Route path="/login" element={<LoginPage />} />

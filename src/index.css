@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-manzil-50 text-manzil-dark;
+  }
+  h1, h2, h3 {
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-medium tracking-wide transition duration-300;
+  }
+  .btn-primary {
+    @apply bg-manzil-dark text-white hover:bg-manzil-gold;
+  }
+  .btn-outline {
+    @apply border border-manzil-300 text-manzil-dark hover:border-manzil-gold hover:text-manzil-gold;
+  }
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.3em];
+  }
+  .field {
+    @apply w-full border-0 border-b border-manzil-300 bg-transparent px-0 py-3 text-manzil-dark placeholder:text-manzil-400 focus:border-manzil-gold focus:outline-none focus:ring-0 transition;
+  }
+}
+
+@layer utilities {
+  .fade-up {
+    animation: fade-up 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  .music-bar {
+    height: 30%;
+    animation: music-bar 1.4s ease-in-out infinite;
+  }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes music-bar {
+  0%, 100% { height: 30%; }
+  50% { height: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, .music-bar { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}

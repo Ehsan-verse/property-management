@@ -45,7 +45,8 @@ export interface Payment {
   id: string
   tenant_id: string
   unit_id: string
-  month: string // YYYY-MM
+  lease_id?: string
+  payment_month: string // YYYY-MM
   amount: number
   payment_date: string
   payment_method: 'Cash' | 'UPI' | 'Bank Transfer' | 'Other'

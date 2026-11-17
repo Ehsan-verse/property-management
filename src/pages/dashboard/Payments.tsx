@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { Plus, Edit, Download, CreditCard as CreditCardIcon, Calendar, BankTransfer } from 'lucide-react'
+import { Plus, Edit, Download, CreditCard as CreditCardIcon, Calendar, Landmark } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/common/StatusBadge'
 import type { Payment } from '../../types'
@@ -108,7 +108,7 @@ export default function Payments() {
           color="primary"
         />
         <StatCard
-          icon={BankTransfer}
+          icon={Landmark}
           title="Collected"
           value={`₹${stats.collected.toLocaleString()}`}
           color="success"
