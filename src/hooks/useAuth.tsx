@@ -26,9 +26,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     )
 
     // Get initial session
-    const { data: { session } } = await supabase.auth.getSession()
-    setUser(session?.user ?? null)
-    setLoading(false)
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
+      setLoading(false)
+    })
 
     return () => subscription.unsubscribe()
   }, [])

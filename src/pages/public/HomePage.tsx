@@ -1,288 +1,195 @@
+import { FormEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from '../../components/ui/Button'
+import { ArrowRight, Wifi, Sparkles, MapPin, ShieldCheck, Home, BadgeIndianRupee, Phone, Mail } from 'lucide-react'
+import { useReveal } from '../../hooks/useReveal'
+
+const FLOORS = [
+  { floor: 'Fifth', name: '3 × 1 BHK', units: 3 },
+  { floor: 'Fourth', name: '3 × 1 BHK', units: 3 },
+  { floor: 'Third', name: '3 × 1 BHK', units: 3 },
+  { floor: 'Second', name: '3 × 1 BHK', units: 3 },
+  { floor: 'First', name: '1 × 2 BHK + 1 Room Set', units: 2 },
+  { floor: 'Ground', name: 'Owner Residence', units: 0 },
+]
+
+const FEATURES = [
+  { icon: Home, title: 'Well kept', text: 'Thoughtfully maintained homes with modern essentials.' },
+  { icon: Wifi, title: 'High-speed Wi-Fi', text: 'Reliable internet throughout the building.' },
+  { icon: Sparkles, title: 'Clean & quiet', text: 'A peaceful setting with regular upkeep.' },
+  { icon: MapPin, title: 'Easy to reach', text: 'Close to Utkarsh Hospital and daily conveniences.' },
+  { icon: ShieldCheck, title: 'Secure', text: 'Gated access and attentive visitor management.' },
+  { icon: BadgeIndianRupee, title: 'Honest pricing', text: 'Clear, fair terms with no hidden charges.' },
+]
 
 export default function HomePage() {
-  return (
-    <div className="min-h-screen bg-manzil-50">
-      {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-manzil-dark to-manzil-800 opacity-90" />
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url(/placeholder-hero.jpg)' }} />
-        <div className="absolute inset-0 bg-black opacity-30" />
+  useReveal()
 
-        <div className="relative z-10 text-center text-white px-4 max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-            Find Your Comfortable Home at Hamzah&apos;s Manzil
-          </h1>
-          <p className="text-lg md:text-xl mb-8 opacity-90">
-            Premium residential rental property offering comfortable living spaces with modern amenities
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/units">
-              <Button size="lg" className="w-full sm:w-auto">
-                Explore Available Units
-              </Button>
+  return (
+    <div>
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div className="pointer-events-none absolute -right-40 -top-40 h-[32rem] w-[32rem] rounded-full bg-manzil-gold/15 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-48 -left-32 h-[28rem] w-[28rem] rounded-full bg-manzil-200/60 blur-3xl" />
+
+        <div className="container relative mx-auto grid max-w-6xl items-center gap-16 px-6 pb-24 pt-16 md:grid-cols-2 md:pb-32 md:pt-24">
+          <div>
+            <p className="eyebrow fade-up text-manzil-gold">Greater Noida · Residential Rentals</p>
+            <h1 className="fade-up mt-6 font-display text-5xl leading-[1.05] text-manzil-dark md:text-7xl" style={{ animationDelay: '0.1s' }}>
+              A calm place
+              <br />
+              to call <span className="italic text-manzil-gold">home.</span>
+            </h1>
+            <p className="fade-up mt-8 max-w-md text-lg font-light leading-relaxed text-manzil-700" style={{ animationDelay: '0.2s' }}>
+              Comfortable 1 & 2 BHK homes in a quiet, well-managed building at Hamzah&apos;s Manzil.
+            </p>
+            <div className="fade-up mt-10 flex flex-wrap items-center gap-6" style={{ animationDelay: '0.3s' }}>
+              <Link to="/units" className="btn btn-primary gap-2 px-7 py-3">
+                View available homes <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a href="#location" className="text-sm tracking-wide text-manzil-700 underline-offset-8 transition hover:text-manzil-gold hover:underline">
+                See location
+              </a>
+            </div>
+          </div>
+
+          {/* Minimal building illustration */}
+          <div className="fade-up relative mx-auto w-full max-w-sm" style={{ animationDelay: '0.25s' }}>
+            <div className="rounded-t-[10rem] border border-manzil-200 bg-white/70 p-6 pt-24 shadow-2xl shadow-manzil-900/10 backdrop-blur">
+              <div className="space-y-2.5">
+                {FLOORS.map(({ floor, units }) => (
+                  <div key={floor} className="flex gap-2.5">
+                    {Array.from({ length: Math.max(units, 1) }).map((_, i) => (
+                      <div
+                        key={i}
+                        className={`h-9 flex-1 rounded-md ${
+                          units === 0 ? 'bg-manzil-dark/90' : (i + floor.length) % 3 === 0 ? 'bg-manzil-gold/70' : 'bg-manzil-100'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+              <p className="mt-6 text-center font-display text-lg italic text-manzil-600">Z/19 · Hamzah Manzil</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Building */}
+      <section className="px-6 py-24">
+        <div className="container mx-auto max-w-6xl">
+          <div className="reveal mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div>
+              <p className="eyebrow text-manzil-gold">The building</p>
+              <h2 className="mt-3 font-display text-4xl text-manzil-dark md:text-5xl">Six floors, thoughtfully planned</h2>
+            </div>
+            <Link to="/buildings" className="text-sm text-manzil-700 transition hover:text-manzil-gold">
+              Explore the building →
             </Link>
-            <Link to="#contact">
-              <Button variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-manzil-dark">
-                Contact Owner
-              </Button>
-            </Link>
+          </div>
+
+          <div className="divide-y divide-manzil-200 border-y border-manzil-200">
+            {FLOORS.map(({ floor, name, units }) => (
+              <div key={floor} className="reveal group flex items-center justify-between gap-4 py-6 transition-colors">
+                <div className="flex items-baseline gap-6 md:gap-12">
+                  <span className="w-24 font-display text-2xl text-manzil-dark md:w-32">{floor}</span>
+                  <span className="text-manzil-600">{name}</span>
+                </div>
+                {units > 0 ? (
+                  <Link to="/units" className="text-sm text-manzil-500 transition group-hover:text-manzil-gold">
+                    {units} {units === 1 ? 'unit' : 'units'} →
+                  </Link>
+                ) : (
+                  <span className="text-xs uppercase tracking-widest text-manzil-400">Private</span>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Building Overview Section */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-manzil-dark mb-4">
-              Building Overview
-            </h2>
-            <p className="text-manzil-dark/70 max-w-2xl mx-auto">
-              A premium 6-storey residential building with diverse accommodation options
+      {/* Features */}
+      <section className="bg-manzil-100/60 px-6 py-24">
+        <div className="container mx-auto max-w-6xl">
+          <div className="reveal mx-auto mb-16 max-w-xl text-center">
+            <p className="eyebrow text-manzil-gold">Why live here</p>
+            <h2 className="mt-3 font-display text-4xl text-manzil-dark md:text-5xl">Simple comforts, done well</h2>
+          </div>
+          <div className="grid gap-x-12 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+            {FEATURES.map(({ icon: Icon, title, text }) => (
+              <div key={title} className="reveal">
+                <Icon className="h-6 w-6 text-manzil-gold" strokeWidth={1.5} />
+                <h3 className="mt-5 font-display text-2xl text-manzil-dark">{title}</h3>
+                <p className="mt-2 font-light leading-relaxed text-manzil-700">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="scroll-mt-24 px-6 py-24">
+        <div className="container mx-auto grid max-w-6xl gap-16 md:grid-cols-2">
+          <div className="reveal">
+            <p className="eyebrow text-manzil-gold">Get in touch</p>
+            <h2 className="mt-3 font-display text-4xl text-manzil-dark md:text-5xl">Come and see it</h2>
+            <p className="mt-6 max-w-sm font-light leading-relaxed text-manzil-700">
+              Questions about a home or want to arrange a visit? Speak with Khalid Anwar, the property manager.
             </p>
+            <div className="mt-10 space-y-4">
+              <a href="tel:+919873444716" className="flex items-center gap-4 text-manzil-dark transition hover:text-manzil-gold">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-manzil-200"><Phone className="h-4 w-4" /></span>
+                +91 98734 44716
+              </a>
+              <a href="mailto:khalid0142759@gmail.com" className="flex items-center gap-4 text-manzil-dark transition hover:text-manzil-gold">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full border border-manzil-200"><Mail className="h-4 w-4" /></span>
+                khalid0142759@gmail.com
+              </a>
+            </div>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <BuildingFloorCard
-              floor="Ground Floor"
-              name="Owner Residence"
-              units={0}
-              isOwnerResidence
-              color="from-manzil-100 to-manzil-50"
-            />
-            <BuildingFloorCard
-              floor="First Floor"
-              name="1 x 2 BHK + 1 x Room Set"
-              units={2}
-              color="from-manzil-50 to-manzil-100"
-            />
-            <BuildingFloorCard
-              floor="Second Floor"
-              name="3 x 1 BHK"
-              units={3}
-              color="from-manzil-100 to-manzil-50"
-            />
-            <BuildingFloorCard
-              floor="Third Floor"
-              name="3 x 1 BHK"
-              units={3}
-              color="from-manzil-50 to-manzil-100"
-            />
-            <BuildingFloorCard
-              floor="Fourth Floor"
-              name="3 x 1 BHK"
-              units={3}
-              color="from-manzil-100 to-manzil-50"
-            />
-            <BuildingFloorCard
-              floor="Fifth Floor"
-              name="3 x 1 BHK"
-              units={3}
-              color="from-manzil-50 to-manzil-100"
-            />
-          </div>
+          <EnquiryForm />
         </div>
       </section>
-
-      {/* Why Choose Us Section */}
-      <section className="py-16 px-4 bg-manzil-100">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-manzil-dark mb-4">
-              Why Choose Hamzah's Manzil?
-            </h2>
-            <p className="text-manzil-dark/70 max-w-2xl mx-auto">
-              We offer premium residential comfort with professional management
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <FeatureCard
-              icon="🏠"
-              title="Premium Quality"
-              description="Well-maintained units with modern amenities and comfortable living spaces"
-            />
-            <FeatureCard
-              icon="📶"
-              title="High-Speed Wi-Fi"
-              description="High-speed internet connectivity available throughout the building"
-            />
-            <FeatureCard
-              icon="✨"
-              title="Clean & Quiet"
-              description="Peaceful environment with regular maintenance and cleaning services"
-            />
-            <FeatureCard
-              icon="📍"
-              title="Prime Location"
-              description="Convenient location with easy access to public transport and amenities"
-            />
-            <FeatureCard
-              icon="🛡️"
-              title="Secure Environment"
-              description="Gated security access with proper visitor management"
-            />
-            <FeatureCard
-              icon="💰"
-              title="Transparent Pricing"
-              description="Clear, fair rental terms with no hidden charges"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-16 px-4">
-        <div className="container mx-auto max-w-2xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-manzil-dark mb-4">
-              Contact Owner
-            </h2>
-            <p className="text-manzil-dark/70">
-              Have questions? Get in touch with Khalid Anwar
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <ContactInfoCard />
-            <EnquiryForm />
-          </div>
-        </div>
-      </section>
-    </div>
-  )
-}
-
-function BuildingFloorCard({ floor, name, units, isOwnerResidence, color }: {
-  floor: string
-  name: string
-  units: number
-  isOwnerResidence?: boolean
-  color: string
-}) {
-  return (
-    <div className={`bg-gradient-to-r ${color} rounded-xl p-6 shadow-sm border border-manzil-200`}>
-      <div className="flex justify-between items-start mb-4">
-        <h3 className="text-lg font-semibold text-manzil-dark">{floor}</h3>
-        {isOwnerResidence && (
-          <span className="px-2 py-0.5 text-xs font-medium bg-manzil-800 text-manzil-300 rounded-full">
-            Owner Residence
-          </span>
-        )}
-      </div>
-      <p className="text-manzil-dark/70 text-sm mb-3">{name}</p>
-      {!isOwnerResidence && (
-        <Link to="/units" className="text-manzil-gold font-medium text-sm hover:underline">
-          View {units} {units === 1 ? 'Unit' : 'Units'}
-        </Link>
-      )}
-    </div>
-  )
-}
-
-function FeatureCard({ icon, title, description }: { icon: string, title: string, description: string }) {
-  return (
-    <div className="bg-white rounded-xl p-6 shadow-sm border border-manzil-200 hover:shadow-md transition-shadow">
-      <div className="text-3xl mb-4">{icon}</div>
-      <h3 className="text-xl font-semibold text-manzil-dark mb-2">{title}</h3>
-      <p className="text-manzil-dark/70 text-sm">{description}</p>
-    </div>
-  )
-}
-
-function ContactInfoCard() {
-  return (
-    <div className="space-y-6">
-      <ContactInfoItem
-        icon="📞"
-        label="Phone"
-        value="9873444716"
-      />
-      <ContactInfoItem
-        icon="✉️"
-        label="Email"
-        value="khalid0142759@gmail.com"
-      />
-      <ContactInfoItem
-        icon="💼"
-        label="Property Manager"
-        value="Khalid Anwar"
-      />
-    </div>
-  )
-}
-
-function ContactInfoItem({ icon, label, value }: { icon: string, label: string, value: string }) {
-  return (
-    <div className="flex items-center gap-3 p-4 bg-manzil-100 rounded-lg">
-      <span className="text-2xl">{icon}</span>
-      <div>
-        <p className="text-xs text-manzil-dark/60">{label}</p>
-        <p className="font-medium text-manzil-dark">{value}</p>
-      </div>
     </div>
   )
 }
 
 function EnquiryForm() {
+  // Opens the visitor's email app with the enquiry pre-filled for the owner
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const data = new FormData(e.currentTarget)
+    const body = [
+      `Name: ${data.get('name')}`,
+      `Phone: ${data.get('phone')}`,
+      data.get('email') ? `Email: ${data.get('email')}` : '',
+      '',
+      String(data.get('message') ?? ''),
+    ].filter((l, i) => l !== '' || i === 3).join('\n')
+    window.location.href = `mailto:khalid0142759@gmail.com?subject=${encodeURIComponent("Enquiry - Hamzah's Manzil")}&body=${encodeURIComponent(body)}`
+  }
+
   return (
-    <form className="bg-white rounded-xl p-6 shadow-sm border border-manzil-200 space-y-4">
-      <div>
-        <label className="block text-sm font-medium text-manzil-dark mb-1" htmlFor="name">
-          Name *
+    <form onSubmit={handleSubmit} className="reveal space-y-6 rounded-3xl border border-manzil-200 bg-white/70 p-8 md:p-10">
+      <div className="grid gap-6 sm:grid-cols-2">
+        <label className="block">
+          <span className="sr-only">Name</span>
+          <input name="name" required className="field" placeholder="Your name *" />
         </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          className="w-full px-3 py-2 border border-manzil-300 rounded-md focus:outline-none focus:ring-2 focus:ring-manzil-gold"
-          placeholder="Your full name"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-manzil-dark mb-1" htmlFor="phone">
-          Phone *
+        <label className="block">
+          <span className="sr-only">Phone</span>
+          <input name="phone" type="tel" required className="field" placeholder="Phone *" />
         </label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          required
-          className="w-full px-3 py-2 border border-manzil-300 rounded-md focus:outline-none focus:ring-2 focus:ring-manzil-gold"
-          placeholder="Your phone number"
-        />
       </div>
-      <div>
-        <label className="block text-sm font-medium text-manzil-dark mb-1" htmlFor="email">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          className="w-full px-3 py-2 border border-manzil-300 rounded-md focus:outline-none focus:ring-2 focus:ring-manzil-gold"
-          placeholder="Your email (optional)"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-manzil-dark mb-1" htmlFor="message">
-          Message *
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          rows={4}
-          required
-          className="w-full px-3 py-2 border border-manzil-300 rounded-md focus:outline-none focus:ring-2 focus:ring-manzil-gold"
-          placeholder="How can we help you?"
-        />
-      </div>
-      <button type="submit" className="w-full btn btn-primary">
-        Send Enquiry
-      </button>
+      <label className="block">
+        <span className="sr-only">Email</span>
+        <input name="email" type="email" className="field" placeholder="Email (optional)" />
+      </label>
+      <label className="block">
+        <span className="sr-only">Message</span>
+        <textarea name="message" rows={4} required className="field resize-none" placeholder="How can we help? *" />
+      </label>
+      <button type="submit" className="btn btn-primary w-full py-3.5">Send enquiry</button>
     </form>
   )
 }

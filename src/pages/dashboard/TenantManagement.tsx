@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import { Plus, Edit, Mail, Phone, User, Home, Calendar, CreditCard, FileText } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/common/StatusBadge'
